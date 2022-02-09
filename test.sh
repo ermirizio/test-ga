@@ -2,4 +2,4 @@
 set -exo pipefail
 
 LOCALIP=${1:-'localhost'}
-RANDOM_USER=$(env tr -dc "a-z0-9" < /dev/urandom | head -c 10)
+RANDOM_USER=$(echo $RANDOM | md5sum | head -c 10 | tr -dc a-z0-9)
