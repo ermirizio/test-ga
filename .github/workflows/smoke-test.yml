@@ -31,4 +31,5 @@ jobs:
         shell: bash
         run: |
           set -eaxo pipefail
+          chmod +x test.sh
           ./test.sh
