@@ -20,7 +20,7 @@ jobs:
       #     tags: app:latest
 
       - name: retry docker build
-        uses: Wandalen/wretry.action@v1.0.11
+        uses: Wandalen/wretry.action@v1.0.19
         with:
           action: docker/build-push-action@v3
           with: |
