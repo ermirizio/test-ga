@@ -23,7 +23,7 @@ jobs:
         uses: Wandalen/wretry.action@v1.0.11
         with:
           action: docker/build-push-action@v3
-          with:
+          with: |
             context: .
             push: false
             tags: app:latest
