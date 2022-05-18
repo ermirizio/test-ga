@@ -26,6 +26,5 @@ jobs:
           with: |
             context: .
             push: false
-            tags: app:latest
           attempt_limit: 3
           attempt_delay: 2000
