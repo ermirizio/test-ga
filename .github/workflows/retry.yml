@@ -23,8 +23,5 @@ jobs:
         uses: Wandalen/wretry.action@v1.0.19
         with:
           action: docker/build-push-action@v3
-          with: |
-            context: .
-            push: false
           attempt_limit: 3
           attempt_delay: 2000
