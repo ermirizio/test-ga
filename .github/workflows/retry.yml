@@ -3,6 +3,7 @@ name: Retry
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
   
 jobs:
   main:
