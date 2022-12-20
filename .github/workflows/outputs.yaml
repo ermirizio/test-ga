@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Github Outputs
+name: GithubOutputs
 
 # Controls when the workflow will run
 on:
@@ -11,7 +11,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  outputs:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,7 @@ jobs:
         echo "myvar=second" >> $GITHUB_OUTPUT
         echo "myvar=third" >> $GITHUB_OUTPUT
         
-     - name: test3
+    - name: test3
       id: third
       if: ${{ steps.second.outputs.myvar == 'third' }}
       run: |
