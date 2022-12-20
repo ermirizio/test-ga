@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Github Outputs
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: test1
+      id: first
+      run: echo "myvar=first" >> $GITHUB_OUTPUT
+
+    - name: test2
+      id: second
+      run: |
+        echo "This is myvar value ${{ steps.first.outputs.myvar }}"
+        echo "myvar=second" >> $GITHUB_OUTPUT
+        echo "myvar=third" >> $GITHUB_OUTPUT
+        
+     - name: test3
+      id: third
+      if: ${{ steps.second.outputs.myvar == 'third' }}
+      run: |
+        echo "This is myvar value from first step ${{ steps.first.outputs.myvar }}"
+        echo "This is myvar value from second step ${{ steps.second.outputs.myvar }}"
+        
