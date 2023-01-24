@@ -1,3 +1,5 @@
+name: test-tag
+
 on:
   pull_request:
     tags:
