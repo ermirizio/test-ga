@@ -2,6 +2,7 @@ name: test-tag
 
 on:
   pull_request:
+  push:
     tags:
       - v*
 
