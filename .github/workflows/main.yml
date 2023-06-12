@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: Always echo
-      run: echo Always
+      run: echo "Always-retry"
 
     - name: test1
       run: echo hoge
