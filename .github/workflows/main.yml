@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Always echo
+      run: echo Always
+
     - name: test1
       run: echo hoge
       if: ( ${{ github.event_name != 'pull_request' }} )
