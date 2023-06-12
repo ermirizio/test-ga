@@ -4,11 +4,13 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+  push:
+    branches:
+      - main
+      - release-**
+    tags:
+      - 'v*'
 
 jobs:
   test:
@@ -17,28 +19,4 @@ jobs:
     steps:
     - name: test1
       run: echo hoge
-      if: ( 'a' == 'a' )
-
-    - name: test2
-      run: echo hoge
-      if: ( 'a' == 'b' )
-
-    - name: test3
-      run: echo hoge
-      if: >
-        'a' == 'a'
-
-    - name: test4
-      run: echo hoge
-      if: >
-        'a' == 'b'
-
-    - name: test5
-      run: echo hoge
-      if: >
-        ${{ 'a' == 'a' }}
-
-    - name: test6
-      run: echo hoge
-      if: >
-        ${{ 'a' == 'b' }}
+      if: ( ${{ github.event_name != 'pull_request' }} )
