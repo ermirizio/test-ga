@@ -22,4 +22,4 @@ jobs:
 
     - name: test1
       run: echo "${{ github.event_name}}"
-      if: ( ${{ github.event_name != 'pull_request' }} )
+      if: github.event_name != 'pull_request'
