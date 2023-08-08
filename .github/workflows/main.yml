@@ -15,6 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Multiline check
+      run: |
+        docker \
+        ps
+
     - name: test1
       run: echo hoge
       if: ( 'a' == 'a' )
