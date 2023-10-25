@@ -5,8 +5,6 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -16,35 +14,15 @@ jobs:
 
     steps:
 
-    - name: Multiline check
-      run: |
-        docker \
-        ps
-
-    - name: test1
-      run: echo hoge
-      if: ( 'a' == 'a' )
-
-    - name: test2
-      run: echo hoge
-      if: ( 'a' == 'b' )
-
-    - name: test3
-      run: echo hoge
-      if: >
-        'a' == 'a'
-
-    - name: test4
-      run: echo hoge
-      if: >
-        'a' == 'b'
-
-    - name: test5
-      run: echo hoge
-      if: >
-        ${{ 'a' == 'a' }}
-
-    - name: test6
-      run: echo hoge
-      if: >
-        ${{ 'a' == 'b' }}
+    - name: Comment on PR
+      if: ${{ always() }} && github.event.issue.pull_request
+      uses: mshick/add-pr-comment@v1
+      with:
+        message: |
+          **API tests result
+          Branch used: ${{ github.ref }}
+          Commit: ${{ github.event.after }} ${{ github.event.commits[0].message }}
+          Triggered by: ${{ github.event_name }} (@${{ github.actor }})
+          [Execution page](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+        repo-token: ${{ secrets.ORG_GH_TOKEN }}
+        allow-repeats: no
