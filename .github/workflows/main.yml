@@ -25,4 +25,5 @@ jobs:
           Triggered by: ${{ github.event_name }} (@${{ github.actor }})
           [Execution page](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
         repo-token: ${{ secrets.ORG_GH_TOKEN }}
+        message-success: true
         allow-repeats: no
