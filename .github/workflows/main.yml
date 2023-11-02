@@ -16,6 +16,19 @@ jobs:
       matrix:
         conf: [ "sha256", "murmur64" ]
         db: [ "mongo44", "postgres15" ]
+        include:
+          - db: postgres15
+            conf: "sha256"
+            number: "101"
+          - db: postgres15
+            conf: "murmur64"
+            number: "102"            
+          - db: mongo44
+            conf: "sha256"
+            number: "103"
+          - db: mongo44
+            conf: "murmur64"
+            number: "104"
     steps:
 
     - name: Comment on PR
@@ -29,4 +42,4 @@ jobs:
           Triggered by: ${{ github.event_name }} (@${{ github.actor }})
           [Execution page](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
         repo-token: ${{ secrets.ORG_GH_TOKEN }}
-        allow-repeats: true
+        message-id: ${{matrix.number}}
