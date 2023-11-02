@@ -19,7 +19,7 @@ jobs:
       uses: mshick/add-pr-comment@v2
       with:
         message: |
-          **API tests result
+          **API tests result wup
           Branch used: ${{ github.ref }}
           Commit: ${{ github.event.after }} ${{ github.event.commits[0].message }}
           Triggered by: ${{ github.event_name }} (@${{ github.actor }})
