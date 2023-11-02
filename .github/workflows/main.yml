@@ -11,7 +11,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        conf: [ "sha256", "murmur64" ]
+        db: [ "mongo44", "postgres15" ]
     steps:
 
     - name: Comment on PR
@@ -19,7 +23,7 @@ jobs:
       uses: mshick/add-pr-comment@v2
       with:
         message: |
-          **API tests result
+          **API tests result - ${{ matrix.db }}-${{ matrix.conf }}: Success 
           Branch used: ${{ github.ref }}
           Commit: ${{ github.event.after }} ${{ github.event.commits[0].message }}
           Triggered by: ${{ github.event_name }} (@${{ github.actor }})
