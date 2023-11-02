@@ -26,5 +26,6 @@ jobs:
           [Execution page](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
         repo-token: ${{ secrets.ORG_GH_TOKEN }}
         message-id: 1
-        update-only: true
+        allow-repeats: false
+        update-only: false
         message-success: true
