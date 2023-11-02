@@ -28,4 +28,4 @@ jobs:
         message-id: 1
         update-only: true
         message-success: true
-        allow-repeats: no
+        allow-repeats: yes
