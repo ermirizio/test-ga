@@ -52,7 +52,7 @@ jobs:
       - name: Collect tests results
         id: test_results
         run: |
-          echo "This is outcome for ${{ needs.test.outputs.test_outcome }}"
+          echo "This is outcome for ${{ needs.test.outputs.api_test_result }}"
 
       - run: ${{ tojson(needs.test) }}
         shell: cat {0}
