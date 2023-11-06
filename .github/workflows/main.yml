@@ -38,7 +38,7 @@ jobs:
           TEST_OUTCOME: ${{ job.status }}
 
     outputs:
-      test_outcome: ${{ steps.fake_test.outputs.TEST_OUTCOME }}
+      test_outcome: ${{ steps.fake_test.env.TEST_OUTCOME }}
 
   xray:
     needs: test
