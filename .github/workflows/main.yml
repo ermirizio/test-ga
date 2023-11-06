@@ -37,8 +37,12 @@ jobs:
         env:
           TEST_OUTCOME: ${{ job.status }}
 
+      - name: Set test result
+        if: ${{ steps.fake_test.test_outcome }} != 'success'
+        run: echo "fail_test" = ${{ steps.fake_test.test_outcome }} > $GITHUB_OUTPUT
+
     outputs:
-      test_outcome: ${{ steps.fake_test.env.TEST_OUTCOME }}
+      api_test_result: ${{ steps.fake_test.outputs.fail_test }}
 
   xray:
     needs: test
