@@ -50,7 +50,8 @@ jobs:
         run: |
           echo "This is outcome for ${{ needs.test.outputs.test_outcome }}"
 
-
+      - run: ${{ tojson(needs.test_outcome) }}
+        shell: cat {0}
 
     # - name: Comment on PR
     #   if: ${{ always() }} && github.event.issue.pull_request
