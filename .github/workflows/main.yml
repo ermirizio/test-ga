@@ -38,11 +38,12 @@ jobs:
           TEST_OUTCOME: ${{ job.status }}
 
       - name: Set test result
+        id: fake_test_result
         if: ${{ steps.fake_test.test_outcome }} != 'success'
         run: echo "fail_test = ${{ steps.fake_test.test_outcome }}" > $GITHUB_OUTPUT
 
     outputs:
-      api_test_result: ${{ steps.fake_test.outputs.fail_test }}
+      api_test_result: ${{ steps.fake_test_result.outputs.fail_test }}
 
   xray:
     needs: test
