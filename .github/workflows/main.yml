@@ -43,7 +43,7 @@ jobs:
       - name: Collect tests results
         id: test_results
         run: |
-          echo "This is outcome for ${{ needs.test.fake_test.outcome }}""
+          echo "This is outcome for ${{ needs.test.fake_test.outcome }}"
 
 
 
