@@ -39,7 +39,7 @@ jobs:
       - name: Set test result
         id: fake_test_result
         if: ${{ always() }} && ${{ steps.fake_test.outcome }} != 'success'
-        run: echo "fail_test = ${{ steps.fake_test.outcome }}" > $GITHUB_OUTPUT
+        run: echo "fail_test = ${{ steps.fake_test.outcome }}" >> $GITHUB_OUTPUT
 
     outputs:
       api_test_result: ${{ steps.fake_test_result.outputs.fail_test }}
