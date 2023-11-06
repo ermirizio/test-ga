@@ -19,28 +19,28 @@ jobs:
         include:
           - db: postgres15
             conf: "sha256"
-            number: "101"
+            expr: "postgres15"
           - db: postgres15
             conf: "murmur64"
-            number: "102"            
+            expr: "postgres15"            
           - db: mongo44
             conf: "sha256"
-            number: "103"
+            expr: "mongo44"
           - db: mongo44
             conf: "murmur64"
-            number: "104"
+            expr: "postgres15"
     steps:
       - name: Fake Test Run
         id: fake_test
         run: |
-          echo "This is fake test run for ${{matrix.db}}-${{matrix.conf}}"
+          echo "This is fake test run for ${{matrix.db}}-${{matrix.conf}} | grep ${{matrix.expr}} "
         env:
           TEST_OUTCOME: ${{ job.status }}
 
       - name: Set test result
         id: fake_test_result
-        if: ${{ steps.fake_test.test_outcome }} != 'success'
-        run: echo "fail_test = ${{ steps.fake_test.test_outcome }}" > $GITHUB_OUTPUT
+        if: ${{ steps.fake_test.outcome }} != 'success'
+        run: echo "fail_test = ${{ steps.fake_test.outcome }}" > $GITHUB_OUTPUT
 
     outputs:
       api_test_result: ${{ steps.fake_test_result.outputs.fail_test }}
