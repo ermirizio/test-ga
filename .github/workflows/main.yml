@@ -19,22 +19,22 @@ jobs:
         include:
           - db: postgres15
             conf: "sha256"
-            expr: "postgres15"
+            expr: "exit 0"
           - db: postgres15
             conf: "murmur64"
-            expr: "postgres15"            
+            expr: "exit 0"            
           - db: mongo44
             conf: "sha256"
-            expr: "mongo44"
+            expr: "exit 0"
           - db: mongo44
             conf: "murmur64"
-            expr: "postgres15"
+            expr: "exit 1"
     steps:
       - name: Fake Test Run
         id: fake_test
         shell: bash
         run: |
-          a fail
+          ${{ matrix.expr }}
 
       - name: Set test result
         id: fake_test_result
