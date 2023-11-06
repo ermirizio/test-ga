@@ -33,13 +33,13 @@ jobs:
       - name: Fake Test Run
         id: fake_test
         run: |
-          echo "This is fake test run for ${{matrix.db}}-${{matrix.conf}} | grep ${{matrix.expr}} "
+          echo "This is fake test run for ${{matrix.db}}-${{matrix.conf}} | grep -q ${{matrix.expr}} "
         env:
           TEST_OUTCOME: ${{ job.status }}
 
       - name: Set test result
         id: fake_test_result
-        if: ${{ steps.fake_test.outcome }} != 'success'
+        if: ${{ always() }} && ${{ steps.fake_test.outcome }} != 'success'
         run: echo "fail_test = ${{ steps.fake_test.outcome }}" > $GITHUB_OUTPUT
 
     outputs:
