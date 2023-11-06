@@ -34,6 +34,11 @@ jobs:
         id: fake_test
         run: |
           echo "This is fake test run for ${{matrix.db}}-${{matrix.conf}}"
+        env:
+          TEST_OUTCOME: ${{ job.status }}
+
+    outputs:
+      test_outcome: ${{ steps.fake_test.outputs.TEST_OUTCOME }}
 
   xray:
     needs: test
@@ -43,7 +48,7 @@ jobs:
       - name: Collect tests results
         id: test_results
         run: |
-          echo "This is outcome for ${{ needs.test.fake_test.outcome }}"
+          echo "This is outcome for ${{ needs.test.outputs.test_outcome }}"
 
 
 
