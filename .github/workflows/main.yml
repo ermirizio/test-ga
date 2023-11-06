@@ -32,10 +32,9 @@ jobs:
     steps:
       - name: Fake Test Run
         id: fake_test
+        shell: bash
         run: |
           echo "This is fake test run for ${{matrix.db}}-${{matrix.conf}} | grep -q ${{matrix.expr}} "
-        env:
-          TEST_OUTCOME: ${{ job.status }}
 
       - name: Set test result
         id: fake_test_result
