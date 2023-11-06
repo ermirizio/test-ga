@@ -51,10 +51,12 @@ jobs:
     steps:
       - name: Collect tests results
         id: test_results
+        if: ${{ always() }}
         run: |
           echo "This is outcome for ${{ needs.test.outputs.api_test_result }}"
 
       - run: ${{ tojson(needs.test) }}
+        if: ${{ always() }}
         shell: cat {0}
 
     # - name: Comment on PR
