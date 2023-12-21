@@ -25,7 +25,7 @@ jobs:
       run: echo ${{ github.base_ref }}
 
     - name: Print github_event
-      run: echo ${{ github.event }}
+      run: echo ${{ github.event_name }}
 
 
 
