@@ -36,7 +36,17 @@ jobs:
         run: |
           ${{ matrix.expr }}
 
-      - name: Set test result
+      - name: Set test result normal
+        id: fake_test_result
+        if: steps.fake_test.outcome != 'success'
+        run: echo "fail_test=${{ steps.fake_test.outcome }}" >> $GITHUB_OUTPUT
+
+      - name: Set test result failure
+        id: fake_test_result
+        if: failure() && steps.fake_test.outcome != 'success'
+        run: echo "fail_test=${{ steps.fake_test.outcome }}" >> $GITHUB_OUTPUT
+
+      - name: Set test result always
         id: fake_test_result
         if: always() && steps.fake_test.outcome != 'success'
         run: echo "fail_test=${{ steps.fake_test.outcome }}" >> $GITHUB_OUTPUT
