@@ -1,0 +1,27 @@
+global:
+  license:
+    dashboard: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGxvd2VkX25vZGVzIjoiMzcyMDE1ZDQtMmYyOC00ZjBlLTY0N2EtYTJhMGQ5NjhjNGEzLDgxZDk0ODNlLWRmNmQtNGQ0Zi03MzM1LTcyMTI0ZDI0YWRiZCxiMWE4ZWE1MS1iNDVkLTQxNDctNzRiNy04MmFhZDg3OTRkNTIsNWRmZjMyN2UtMDgwMi00YTUyLTQ3NTQtMGI4MTU3ZDBhNDQ1LGY3ZjljNWY5LTI4NzYtNDQxZS02ZTMzLTJhYWM0MDc2N2RlZixkYWMyNTQ2Ny1mZjVlLTQzMDUtNmU0Ny01YmFmMGUzZTVjNGYsYWFmMzJhMmItN2VhZS00NDU3LTU0NzMtMWE1YmFjZjkxYTJmLGRhOWU4ZWZiLTE4NTMtNDBlOC02MTI4LWY2MjY5NzI3YjljZSw1NjNkNjZkNy1kMmRiLTRhZWMtNjQ3MC04ZWFiNWVlYzdlZDYsYmZkOWFjYmItZTEzOS00MDUwLTY2ZGUtZThjMDhiYzgzOGMwIiwiZXhwIjoxNzEwNTQ3MTk5LCJpYXQiOjE3MDc5NDMzMzQsIm93bmVyIjoiNjFjY2U2MmMxMjFjYTEwMDAxOGJiMTkwIiwic2NvcGUiOiJtdWx0aV90ZWFtLHJiYWMsZ3JhcGgsZmVkZXJhdGlvbiIsInYiOiIyIn0.HSYDhXBd-TUWatgiCaBcUmLQD7DgyDSedIuesuHQ3edzLSQ0iLx-hz201PeiOwN7rqE-WZQ-61_VsiSaEp7MR37tS5uv2Nz3JHx5CEFSYJnwKi2rwGEN5qvaF0PzAEU_vkhachfqRaDl6C3SJsJ5U8uE2gU80iduUtqxaQQji1HwRXl8gh4S-32B3Qdp-7g39v0kf8D8G2Ubqa3yDHmFA1spL7vyIdWJIu1KaxKM_3_50I1zX4Ci0qhkzjzDHOdBNOc91-vChWEJrRMZBekn3mP2zwt-JbAQawLNdBkT7hNzUfjR_E0h7Ee6Yzt0ippXBGThqNE6S023AfUgxePYZg
+  redis:
+    addrs:
+      - tyk-redis-master.tyk-stack.svc.cluster.local:6379
+    passSecret:
+      name: "tyk-redis"
+      keyName: "redis-password"
+  mongo:
+    driver: mgo
+    mongoURL: mongodb://root:<MONGO_PASS>@tyk-mongo-mongodb.tyk-stack.svc.cluster.local:27017/tyk_analytics?authSource=admin
+  storageType: &globalStorageType mongo
+
+tyk-dashboard:
+  dashboard:
+    extraEnvs:
+    - name: TYK_LOGLEVEL
+      value: debug
+    - name: TYK_DB_LOGLEVEL
+      value: debug      
+
+tyk-gateway:
+  gateway:
+    extraEnvs:
+    - name: TYK_LOGLEVEL
+      value: debug

@@ -13,16 +13,28 @@ env:
 jobs:
   Test-on-cluster:
     runs-on: ubuntu-latest
+    env:
+      NAMESPACE: tyk-stack
     steps:
-## starts the cluster
+      - uses: actions/checkout@v4
       - name: Testing on a k8s Kind Cluster
         uses: helm/kind-action@v1.8.0
-## makes sure cluster is up and running
       - name: Configure cluster
         run: |
           kubectl cluster-info
           kubectl get nodes    
-      - name: Install
+      - name: Install Helm
         uses: Azure/setup-helm@v3
         with:
           version: v3.12.1	
+      - name: Install Mongo 4.4 
+        run: |
+          helm repo add bitnami-full-index https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+          helm upgrade tyk-mongo bitnami-full-index/mongodb --version 11.2.0 --set "replicaSet.enabled=true" -n ${NAMESPACE} --create-namespace --install
+          pass=$(kubectl get secret --namespace ${NAMESPACE} tyk-mongo-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
+          echo "PASS IS $pass"
+          sed -i "s/<MONGO_PASS>/$pass/g" local-values-stack.yaml
+      - name: Instal Redis 6.0
+        run: helm upgrade tyk-redis oci://registry-1.docker.io/bitnamicharts/redis -n ${NAMESPACE} --create-namespace --install --set image.tag=6.2.13          
+      - name: Install Tyk Stack
+        run: helm upgrade tyk-stack tyk-helm/tyk-stack -n ${NAMESPACE} --create-namespace --install --devel --values local-values-stack.yaml
