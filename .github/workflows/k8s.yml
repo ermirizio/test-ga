@@ -34,13 +34,13 @@ jobs:
       - name: Install Mongo 4.4 
         run: |
           helm repo add bitnami-full-index https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
-          helm upgrade tyk-mongo bitnami-full-index/mongodb --version 11.2.0 --set "replicaSet.enabled=true" -n ${NAMESPACE} --create-namespace --install
+          helm upgrade tyk-mongo bitnami-full-index/mongodb --version 11.2.0 --set "replicaSet.enabled=true" -n ${NAMESPACE} --create-namespace --install --wait
           pass=$(kubectl get secret --namespace ${NAMESPACE} tyk-mongo-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
           echo "PASS IS $pass"
           sed -i "s/<MONGO_PASS>/$pass/g" local-values-stack.yaml
 
       - name: Instal Redis 6.2.3
-        run: helm upgrade tyk-redis oci://registry-1.docker.io/bitnamicharts/redis -n ${NAMESPACE} --create-namespace --install --set image.tag=6.2.13          
+        run: helm upgrade tyk-redis oci://registry-1.docker.io/bitnamicharts/redis -n ${NAMESPACE} --create-namespace --install --wait --set image.tag=6.2.13          
 
       - name: Show local values and cluster status
         run: | 
@@ -50,4 +50,4 @@ jobs:
       - name: Install Tyk Stack
         run: |
           helm repo add tyk-helm https://helm.tyk.io/public/helm/charts
-          helm upgrade tyk-stack tyk-helm/tyk-stack -n ${NAMESPACE} --create-namespace --install --devel --values local-values-stack.yaml
+          helm upgrade tyk-stack tyk-helm/tyk-stack -n ${NAMESPACE} --create-namespace --install --wait --devel --values local-values-stack.yaml
