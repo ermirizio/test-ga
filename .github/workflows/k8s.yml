@@ -4,12 +4,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
-  DOCKER_IMAGE_NAME: kube-ez
-  DOCKERFILE_PATH: ./Dockerfile
-
 jobs:
   Test-on-cluster:
     runs-on: ubuntu-latest
