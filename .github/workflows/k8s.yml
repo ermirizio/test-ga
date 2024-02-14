@@ -1,0 +1,28 @@
+name: Kube-ez CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  DOCKER_IMAGE_NAME: kube-ez
+  DOCKERFILE_PATH: ./Dockerfile
+
+jobs:
+  Test-on-cluster:
+    runs-on: ubuntu-latest
+    steps:
+## starts the cluster
+      - name: Testing on a k8s Kind Cluster
+        uses: helm/kind-action@v1.8.0
+## makes sure cluster is up and running
+      - name: Configure cluster
+        run: |
+          kubectl cluster-info
+          kubectl get nodes    
+      - name: Install
+        uses: Azure/setup-helm@v3
+        with:
+          version: v3.12.1	
