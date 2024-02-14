@@ -34,7 +34,9 @@ jobs:
           pass=$(kubectl get secret --namespace ${NAMESPACE} tyk-mongo-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
           echo "PASS IS $pass"
           sed -i "s/<MONGO_PASS>/$pass/g" local-values-stack.yaml
-      - name: Instal Redis 6.0
+      - name: Instal Redis 6.2.3
         run: helm upgrade tyk-redis oci://registry-1.docker.io/bitnamicharts/redis -n ${NAMESPACE} --create-namespace --install --set image.tag=6.2.13          
       - name: Install Tyk Stack
-        run: helm upgrade tyk-stack tyk-helm/tyk-stack -n ${NAMESPACE} --create-namespace --install --devel --values local-values-stack.yaml
+        run: |
+          helm repo add tyk-helm https://helm.tyk.io/public/helm/charts
+          helm upgrade tyk-stack tyk-helm/tyk-stack -n ${NAMESPACE} --create-namespace --install --devel --values local-values-stack.yaml
