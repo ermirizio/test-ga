@@ -37,16 +37,13 @@ jobs:
       run: |
         echo '{ "myatt": "value1" }' > /tmp/report_with_metadata.json
 
-    - name: Import into MongoDB
+    - name: Install MongoImport
       run: |
-        docker run --rm \
-          -v /tmp/report_with_metadata.json:/tmp/report_with_metadata.json \
-          mongo mongosh mongodb+srv://mongo:${{ secrets.MONGO_PASS }}@tyk-ci.pzeexqy.mongodb.net/${DATABASE_NAME} --eval 'const data = JSON.parse(load("/tmp/report_with_metadata.json")); db.test_report.insertOne(data);'
-      env:
-        DATABASE_NAME: test
-        COLLECTION_NAME: test_report
+        wget -O "mongo.deb" 'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb'
+        sudo dpkg -i "mongo.deb"          
 
-
+    - name: Insert into MongoDB
+      run: mongoimport --uri="mongodb+srv://mongo:${{ secrets.MONGO_PASS }}@tyk-ci.pzeexqy.mongodb.net/test" --collection=test_report --file=/tmp/report_with_metadata.json
 
 
 
