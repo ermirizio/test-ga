@@ -41,7 +41,7 @@ jobs:
       run: |
         docker run --rm \
           -v /tmp/report_with_metadata.json:/tmp/report_with_metadata.json \
-          mongo mongosh --host "mongodb+srv://mongo:${{ secrets.MONGO_PASS }}@tyk-ci.pzeexqy.mongodb.net" ${DATABASE_NAME} --eval 'db.test_report.insertOne(JSON.parse(cat("/tmp/report_with_metadata.json")))'
+          mongo mongosh mongodb+srv://mongo:${{ secrets.MONGO_PASS }}@tyk-ci.pzeexqy.mongodb.net/${DATABASE_NAME} --eval 'db.test_report.insertOne(JSON.parse(cat("/tmp/report_with_metadata.json")))'
       env:
         DATABASE_NAME: test
         COLLECTION_NAME: test_report
