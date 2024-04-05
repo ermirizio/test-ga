@@ -39,8 +39,17 @@ jobs:
 
     - name: Install MongoImport
       run: |
-        wget -O "mongo.deb" 'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb'
-        sudo dpkg -i "mongo.deb"          
+        apt-get update
+        apt-get install gnupg curl
+        curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+        echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+        apt-get update
+        apt-get install -y mongodb-org-tools
+
+# - name: Install MongoImport
+    #   run: |
+    #     wget -O "mongo.deb" 'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb'
+    #     sudo dpkg -i "mongo.deb"          
 
     - name: Insert into MongoDB
       run: mongoimport --uri="mongodb+srv://mongo:${{ secrets.MONGO_PASS }}@tyk-ci.pzeexqy.mongodb.net/test" --collection=test_report --file=/tmp/report_with_metadata.json
