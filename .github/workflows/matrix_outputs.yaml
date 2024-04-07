@@ -22,9 +22,18 @@ jobs:
         id: params
         run: |
           echo "var_a=${{ matrix.job }}" >> $GITHUB_OUTPUT
-          sleep $[ ( $RANDOM % 10 )  + 1 ]s
+          sleep $[ ( $RANDOM % 10 )  + 1 ]s          
       - name: show params
         run: |
           echo "var_a=${{ steps.params.outputs.var_a }}"
+      - name: set params 2
+        id: params_b
+        run: |
+          echo "var_a=${{ matrix.job }}-paramB" >> $GITHUB_OUTPUT
+          sleep $[ ( $RANDOM % 10 )  + 1 ]s
+      - name: show params 2
+        run: |
+          echo "var_a=${{ steps.params.outputs.var_a }}"
+          echo "var_a=${{ steps.params_b.outputs.var_a }}"                    
 
         
