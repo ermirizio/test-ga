@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: MatrixOutputs
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        job: ["instance_a","instance_b","instance_c"]
+    steps:
+      - name: set params
+        id: params
+        run: |
+          echo "var_a=${{ matrix.job }}" >> $GITHUB_OUTPUT
+          sleep $[ ( $RANDOM % 10 )  + 1 ]s
+      - name: show params
+        run: |
+          echo "var_a=${{ steps.params.outputs.var_a }}"
+
+        
