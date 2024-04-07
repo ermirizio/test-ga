@@ -37,6 +37,6 @@ jobs:
           echo "var_a=${{ steps.params_b.outputs.var_a }}"
       - name: Show github vars
         run: |
-          echo "${{ github.repository }}_${{ github.run_id }}-${{ github.run_attempt }}"
+          echo "${{ github.repository }}_${{ github.run_id }}_${{ github.run_number }}-${{ github.run_attempt }}"
 
         
