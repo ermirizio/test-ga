@@ -44,7 +44,7 @@ jobs:
           echo "timestamp_hash=$(date +%s | sha256sum | base64 | head -c 32)" >> $GITHUB_OUTPUT
 
           # Get the current timestamp
-          timestamp=$(date +%s)
+          timestamp=$(date +%s%N)
 
           # Calculate the hash of the timestamp
           hash=$(echo -n "$timestamp" | sha1sum | awk '{print $1}')
