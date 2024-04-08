@@ -48,9 +48,9 @@ jobs:
           ls -lR
           echo "TMP"
           touch /tmp/${{matrix.job}}
-          ls -lR /tmp
+          ls -lR /tmp/instance_*
           echo "WORKSPACE"
           touch ${{github.workspace}}/${{matrix.job}}
-          ls -lR /tmp
+          ls -lR ${{github.workspace}}
 
         
