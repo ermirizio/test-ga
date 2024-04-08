@@ -18,39 +18,31 @@ jobs:
       matrix:
         job: ["instance_a","instance_b","instance_c"]
     steps:
-      - name: set params
-        id: params
-        run: |
-          echo "var_a=${{ matrix.job }}" >> $GITHUB_OUTPUT
-          sleep $[ ( $RANDOM % 10 )  + 1 ]s          
-      - name: show params
-        run: |
-          echo "var_a=${{ steps.params.outputs.var_a }}"
-      - name: set params 2
-        id: params_b
-        run: |
-          echo "var_a=${{ matrix.job }}-paramB" >> $GITHUB_OUTPUT
-          sleep $[ ( $RANDOM % 10 )  + 1 ]s
-      - name: show params 2
-        run: |
-          echo "var_a=${{ steps.params.outputs.var_a }}"
-          echo "var_a=${{ steps.params_b.outputs.var_a }}"
-      - name: Show github vars
-        run: |
-          echo "${{ github.repository }}_${{ github.run_id }}_${{ github.run_number }}-${{ github.run_attempt }}"
+      - uses: actions/checkout@v4
+      # - name: set params
+      #   id: params
+      #   run: |
+      #     echo "var_a=${{ matrix.job }}" >> $GITHUB_OUTPUT
+      #     sleep $[ ( $RANDOM % 10 )  + 1 ]s          
+      # - name: show params
+      #   run: |
+      #     echo "var_a=${{ steps.params.outputs.var_a }}"
+      # - name: set params 2
+      #   id: params_b
+      #   run: |
+      #     echo "var_a=${{ matrix.job }}-paramB" >> $GITHUB_OUTPUT
+      #     sleep $[ ( $RANDOM % 10 )  + 1 ]s
+      # - name: show params 2
+      #   run: |
+      #     echo "var_a=${{ steps.params.outputs.var_a }}"
+      #     echo "var_a=${{ steps.params_b.outputs.var_a }}"
+      # - name: Show github vars
+      #   run: |
+      #     echo "${{ github.repository }}_${{ github.run_id }}_${{ github.run_number }}-${{ github.run_attempt }}"
 
       - name: Get timestamp hash
         run: |
-          echo "timestamp_hash=$(date +%s | sha256sum | base64 | head -c 32)" >> $GITHUB_OUTPUT
-
-          # Get the current timestamp
-          timestamp=$(date +%s%N)
-
-          # Calculate the hash of the timestamp
-          hash=$(echo -n "$timestamp" | sha1sum | awk '{print $1}')
-
-          # Print the timestamp and its hash
-          echo "Current Timestamp: $timestamp"
-          echo "Hash of the timestamp: $hash"
+          echo "${{matrix.job}}" >> README.md
+          cat README.md
 
         
