@@ -46,5 +46,11 @@ jobs:
           touch ${{matrix.job}}
           cat README.md
           ls -lR
+          echo "TMP"
+          touch /tmp/${{matrix.job}}
+          ls -lR /tmp
+          echo "WORKSPACE"
+          touch ${{github.workspace}}/${{matrix.job}}
+          ls -lR /tmp
 
         
