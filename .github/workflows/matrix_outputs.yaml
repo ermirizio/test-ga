@@ -43,6 +43,8 @@ jobs:
       - name: Get timestamp hash
         run: |
           echo "${{matrix.job}}" >> README.md
+          touch ${{matrix.job}}
           cat README.md
+          ls -lR
 
         
