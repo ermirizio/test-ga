@@ -17,6 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         job: ["instance_a","instance_b","instance_c"]
+        title: ["title1", "title2"]
     steps:
       - uses: actions/checkout@v4
       # - name: set params
