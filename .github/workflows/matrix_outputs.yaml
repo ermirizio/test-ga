@@ -39,7 +39,11 @@ jobs:
       # - name: Show github vars
       #   run: |
       #     echo "${{ github.repository }}_${{ github.run_id }}_${{ github.run_number }}-${{ github.run_attempt }}"
-
+      - name: try job name
+        run: |
+          # Both work:
+          echo "Job name is $GITHUB_JOB"
+          echo "How about ${{ github.jobs[github.job].name }}"
       - name: Get timestamp hash
         run: |
           echo "${{matrix.job}}" >> README.md
