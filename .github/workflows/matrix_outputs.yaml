@@ -43,7 +43,7 @@ jobs:
       #     echo "${{ github.repository }}_${{ github.run_id }}_${{ github.run_number }}-${{ github.run_attempt }}"
       - name: try job name
         env:
-          MY_DATE: "$(date +%s%N)"
+          MY_DATE: $(date +%s%N)
         run: |
           # Both work:
           echo "MY DATE is $MY_DATE"
