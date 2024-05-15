@@ -17,4 +17,4 @@ jobs:
           
       - name: CI env
         run:
-          tar czf my-env.tgz ./
+          tar czf my-env.tgz .
