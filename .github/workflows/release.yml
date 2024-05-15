@@ -24,5 +24,4 @@ jobs:
           token: ${{ secrets.ORG_GH_TOKEN }}
           name: ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
-          body_path: auto/release.md
-          files: ci-env.tgz					
+          files: my-env.tgz					
