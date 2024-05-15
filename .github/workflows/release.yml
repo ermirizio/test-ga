@@ -24,7 +24,7 @@ jobs:
         with:
           token: ${{ secrets.ORG_GH_TOKEN }}
           name: ${{ github.ref_name }}
-          draft: ${{ endsWith( github.ref, '-rc' )}}
+          draft: ${{ endsWith(github.ref_name, '-rc') || endsWith(github.ref_name, '-alpha') || endsWith(github.ref_name, '-beta') }}
           tag_name: ${{ github.ref_name }}
           files: my-env.tgz					
 
