@@ -24,9 +24,13 @@ jobs:
     - name: Print repo name
       run: echo ${{ github.repository }}
 
+
     - name: Print github_ref
       run: echo ${{ github.ref }}
 
+    - name: Inspect
+      run: ls -l
+      
     - name: Print workspace path
       run: echo ${{ github.workspace }}
 
@@ -35,7 +39,10 @@ jobs:
         repository: TykTechnologies/tyk
 
     - name: Print workspace path
-      run: echo ${{ github.workspace }}      
+      run: echo ${{ github.workspace }}
+
+    - name: Inspect
+      run: ls -l
 
     - name: Print github_base_ref
       run: echo ${{ github.base_ref }}
