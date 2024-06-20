@@ -27,6 +27,16 @@ jobs:
     - name: Print github_ref
       run: echo ${{ github.ref }}
 
+    - name: Print workspace path
+      run: echo ${{ github.workspace }}
+
+    - uses: actions/checkout@v4
+      with:
+        repository: TykTechnologies/tyk
+
+    - name: Print workspace path
+      run: echo ${{ github.workspace }}      
+
     - name: Print github_base_ref
       run: echo ${{ github.base_ref }}
 
