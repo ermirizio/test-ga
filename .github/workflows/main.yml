@@ -30,13 +30,14 @@ jobs:
 
     - name: Inspect
       run: ls -l
-      
+
     - name: Print workspace path
       run: echo ${{ github.workspace }}
 
     - uses: actions/checkout@v4
       with:
         repository: TykTechnologies/tyk
+        path: tyk
 
     - name: Print workspace path
       run: echo ${{ github.workspace }}
@@ -50,26 +51,26 @@ jobs:
     - name: Print github_event
       run: echo ${{ github.event_name }}
 
-    - name: Create json
-      run: |
-        echo '{ "myatt": "value1" }' > /tmp/report_with_metadata.json
+    # - name: Create json
+    #   run: |
+    #     echo '{ "myatt": "value1" }' > /tmp/report_with_metadata.json
 
-    - name: Install MongoImport
-      run: |
-        sudo apt-get update
-        sudo apt-get install gnupg curl
-        curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
-        echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-        sudo apt-get update
-        sudo apt-get install -y mongodb-org-tools
+    # - name: Install MongoImport
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install gnupg curl
+    #     curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+    #     echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+    #     sudo apt-get update
+    #     sudo apt-get install -y mongodb-org-tools
 
 # - name: Install MongoImport
     #   run: |
     #     wget -O "mongo.deb" 'https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb'
     #     sudo dpkg -i "mongo.deb"          
 
-    - name: Insert into MongoDB
-      run: mongoimport --uri="mongodb+srv://mongo:${{ secrets.MONGO_PASS }}@tyk-ci.pzeexqy.mongodb.net/test" --collection=test_report --file=/tmp/report_with_metadata.json
+    # - name: Insert into MongoDB
+    #   run: mongoimport --uri="mongodb+srv://mongo:${{ secrets.MONGO_PASS }}@tyk-ci.pzeexqy.mongodb.net/test" --collection=test_report --file=/tmp/report_with_metadata.json
 
 
 
