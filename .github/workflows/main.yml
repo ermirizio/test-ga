@@ -28,6 +28,9 @@ jobs:
     - name: Print github_ref
       run: echo ${{ github.ref }}
 
+    - name: Print github_ref
+      run: echo ${{ github.ref_name }}
+
     - name: Inspect
       run: ls -l
 
