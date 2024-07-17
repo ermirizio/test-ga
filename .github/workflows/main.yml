@@ -21,6 +21,18 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     
+    - uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: |
+          tests:
+            - 'tests/**'
+
+    # run only if 'tests' files were changed
+    - name: check tests
+      if: steps.filter.outputs.tests == 'true'
+      run: echo "was modified"
+
     - name: Print repo name
       run: echo ${{ github.repository }}
 
