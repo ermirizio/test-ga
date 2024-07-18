@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: Tar
-      run: tar -czvf archive-name.tar.gz .
+      run: tar -czf archive-name.tar.gz .
       
     - uses: actions/checkout@v4
       with:
