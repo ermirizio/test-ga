@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: Tar
-      run: tar cvzf --exclude=./auto-env.tgz auto-env.tgz .
+      run: tar -czvf archive-name.tar.gz .
       
     - uses: actions/checkout@v4
       with:
