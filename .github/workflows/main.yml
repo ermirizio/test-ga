@@ -17,6 +17,9 @@ jobs:
 
 
     steps:
+    - name: Tar
+      run: tar cvzf --exclude=auto-env.tgz auto-env.tgz .
+      
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
