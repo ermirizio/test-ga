@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        envfiles: "myenvfile"
+        envfiles: ["myenvfile"]
         # job: ["instance_a","instance_b","instance_c"]
         # title: ["title1", "title2"]
         # exclude: []
