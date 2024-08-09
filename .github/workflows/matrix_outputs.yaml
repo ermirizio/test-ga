@@ -16,11 +16,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        job: ["instance_a","instance_b","instance_c"]
-        title: ["title1", "title2"]
-        exclude: []
+        envfiles:
+          uimarkers: "my-marker"
+        # job: ["instance_a","instance_b","instance_c"]
+        # title: ["title1", "title2"]
+        # exclude: []
     steps:
       - uses: actions/checkout@v4
+
+      - name: Execute UI tests
+        env:
+          GW_URL: 'https://localhost:8080/'
+          NODE_TLS_REJECT_UNAUTHORIZED: 0
+          UI_MARKERS: ${{ matrix.envfiles.uimarkers && '--grep matrix.envfiles.uimarkers' || '' }}
+        run: echo $UI_MARKERS
+
+
       # - name: set params
       #   id: params
       #   run: |
@@ -41,29 +52,29 @@ jobs:
       # - name: Show github vars
       #   run: |
       #     echo "${{ github.repository }}_${{ github.run_id }}_${{ github.run_number }}-${{ github.run_attempt }}"
-      - name: try job name
-        env:
-          MY_DATE: $(date +%s%N)
-        run: |
-          # Both work:
-          echo "MY DATE is $MY_DATE"
-          echo "Job name is $GITHUB_JOB"
-          echo "How about ${{ github.jobs[github.job].name }}"
-          echo "How about github.job ${{ github.job }}"
-          if [[ "${{ runner.debug }}" == "1" ]]; then
-            echo "IS DEBUG"
-          fi
-      - name: Get timestamp hash
-        run: |
-          echo "${{matrix.job}}" >> README.md
-          touch ${{matrix.job}}
-          cat README.md
-          ls -lR
-          echo "TMP"
-          touch /tmp/${{matrix.job}}
-          ls -lR /tmp/instance_*
-          echo "WORKSPACE"
-          touch ${{github.workspace}}/${{matrix.job}}
-          ls -lR ${{github.workspace}}
+      # - name: try job name
+      #   env:
+      #     MY_DATE: $(date +%s%N)
+      #   run: |
+      #     # Both work:
+      #     echo "MY DATE is $MY_DATE"
+      #     echo "Job name is $GITHUB_JOB"
+      #     echo "How about ${{ github.jobs[github.job].name }}"
+      #     echo "How about github.job ${{ github.job }}"
+      #     if [[ "${{ runner.debug }}" == "1" ]]; then
+      #       echo "IS DEBUG"
+      #     fi
+      # - name: Get timestamp hash
+      #   run: |
+      #     echo "${{matrix.job}}" >> README.md
+      #     touch ${{matrix.job}}
+      #     cat README.md
+      #     ls -lR
+      #     echo "TMP"
+      #     touch /tmp/${{matrix.job}}
+      #     ls -lR /tmp/instance_*
+      #     echo "WORKSPACE"
+      #     touch ${{github.workspace}}/${{matrix.job}}
+      #     ls -lR ${{github.workspace}}
 
         
