@@ -17,8 +17,8 @@ jobs:
 
 
     steps:
-    - name: Tar
-      run: tar -czf archive-name.tar.gz .
+    - name: Check folder
+      run: mkdir auto
       
     - uses: actions/checkout@v4
       with:
