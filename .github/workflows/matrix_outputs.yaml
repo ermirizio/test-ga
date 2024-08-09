@@ -27,7 +27,7 @@ jobs:
         env:
           GW_URL: 'https://localhost:8080/'
           NODE_TLS_REJECT_UNAUTHORIZED: 0
-          UI_MARKERS: ${{ matrix.envfiles }}
+          UI_MARKERS: ${{ matrix.envfiles && '--grep \matrix.envfiles\' || '' }}
         run: echo $UI_MARKERS
 
 
