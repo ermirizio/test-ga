@@ -16,8 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        envfiles:
-          uimarkers: "my-marker"
+        envfiles: "myenvfile"
         # job: ["instance_a","instance_b","instance_c"]
         # title: ["title1", "title2"]
         # exclude: []
@@ -28,7 +27,7 @@ jobs:
         env:
           GW_URL: 'https://localhost:8080/'
           NODE_TLS_REJECT_UNAUTHORIZED: 0
-          UI_MARKERS: ${{ matrix.envfiles.uimarkers && '--grep matrix.envfiles.uimarkers' || '' }}
+          UI_MARKERS: ${{ matrix.envfiles && '--grep' matrix.envfiles || '' }}
         run: echo $UI_MARKERS
 
 
