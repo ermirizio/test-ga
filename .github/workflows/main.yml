@@ -17,6 +17,13 @@ jobs:
 
 
     steps:
+    - name: upper env
+      id: out
+      run: echo "USER_API_SECRET=1df39587a8044b57640c2e1d3fe8991b" >> $GITHUB_OUTPUT
+
+    - name: show upper
+      run: echo "${{ steps.out.outputs.USER_API_SECRET }}"  
+      
     - name: Check folder
       run: mkdir auto
       
