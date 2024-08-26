@@ -13,22 +13,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
-
-
+    env:
+      BASE_REF: "DEFAULT"
     steps:
+    - name: env Read
+      run: echo "BASE REF ${BASE_REF}"
 
     - name: env set 1
       env:
         BASE_REF: "A"
       run: echo "BASE REF ${BASE_REF}"
 
-    - name: env set 2
-      env:
-        BASE_REF: "B"
-      run: echo "BASE REF ${BASE_REF}"
-
-    - name: env R 3
+    - name: env Read
       run: echo "BASE REF ${BASE_REF}"      
 
     - name: upper env
