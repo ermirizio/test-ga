@@ -17,6 +17,20 @@ jobs:
 
 
     steps:
+
+    - name: env set 1
+      env:
+        BASE_REF: "A"
+      run: echo "BASE REF ${BASE_REF}"
+
+    - name: env set 2
+      env:
+        BASE_REF: "B"
+      run: echo "BASE REF ${BASE_REF}"
+
+    - name: env R 3
+      run: echo "BASE REF ${BASE_REF}"      
+
     - name: upper env
       id: out
       run: echo "USER_API_SECRET=1df39587a8044b57640c2e1d3fe8991b" >> $GITHUB_OUTPUT
