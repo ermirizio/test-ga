@@ -10,12 +10,23 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency: 
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        run: ["run1", "run2"]    
     env:
       BASE_REF: "DEFAULT"
     steps:
+    - name: Sleep 3600 - ${{ matrix.run }}
+      run: sleep 3600
+
     - name: env Read
       run: echo "BASE REF ${BASE_REF}"
 
