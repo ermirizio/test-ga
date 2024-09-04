@@ -1,0 +1,16 @@
+name: Scheduled Workflow
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Runs every day at midnight UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Print branch name
+        run: echo ${{ github.ref }}
