@@ -24,9 +24,6 @@ jobs:
     env:
       BASE_REF: "DEFAULT"
     steps:
-    - name: Sleep 700 - ${{ matrix.run }}
-      run: sleep 700
-
     - name: env Read
       run: echo "BASE REF ${BASE_REF}"
 

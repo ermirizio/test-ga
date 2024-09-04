@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Concurrency test
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency: 
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        run: ["run1", "run2"]    
+
+    steps:
+    - name: Environment Read
+      run: |
+        echo "GITHUB.REF ${{ github.ref }}"
+        echo "GITHUB.WORKFLOW ${{ github.workflow }}"
+        echo "GITHUB.HEAD ${{ github.head }}"
+
+    - name: Sleep 600 - ${{ matrix.run }}
+      run: sleep 600      
+
+
