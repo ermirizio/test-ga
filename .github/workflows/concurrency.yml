@@ -13,6 +13,8 @@ on:
 concurrency: 
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+env:
+  BASE_REF: ${{startsWith(github.event_name, 'pull_request') && github.base_ref || github.ref_name}}
 
 jobs:
   test:
@@ -23,6 +25,10 @@ jobs:
         run: ["run1", "run2"]    
 
     steps:
+    - name: Checkout of tyk
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ env.BASE_REF }}
     - name: Environment Read
       run: |
         echo "GITHUB.REF ${{ github.ref }}"
