@@ -13,8 +13,8 @@ on:
 concurrency: 
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: ${{ github.event_name == 'pull_request' }}
-env:
-  BASE_REF: ${{ startsWith(github.event_name, 'pull_request') && github.base_ref || (startsWith(github.ref, 'refs/tags/') ? github.ref.replace('refs/tags/', '') : github.ref_name) }}
+# env:
+#   BASE_REF: ${{ startsWith(github.event_name, 'pull_request') && github.base_ref || (startsWith(github.ref, 'refs/tags/') && github.bra || github.ref_name) }}
 
 jobs:
   test:
@@ -25,15 +25,17 @@ jobs:
     #     run: ["run1", "run2"]    
 
     steps:
-    - name: Checkout REPO
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ env.BASE_REF }}
+    # - name: Checkout REPO
+    #   uses: actions/checkout@v4
+    #   with:
+    #     ref: ${{ env.BASE_REF }}
 
     - name: Environment Read
       run: |
         echo "GITHUB.REF ${{ github.ref }}"
+        echo "GITHUB.REF_NAME ${{ github.ref_name }}"
         echo "GITHUB.WORKFLOW ${{ github.workflow }}"
-        echo "GITHUB.HEAD ${{ github.head }}"    
+        echo "GITHUB.HEAD ${{ github.head_ref }}"
+        echo "GITHUB.BASE ${{ github.base_ref }}"    
 
 
