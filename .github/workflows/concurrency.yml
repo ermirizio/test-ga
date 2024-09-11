@@ -14,28 +14,26 @@ concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 env:
-  BASE_REF: ${{startsWith(github.event_name, 'pull_request') && github.base_ref || github.ref_name}}
+  BASE_REF: ${{ startsWith(github.event_name, 'pull_request') && github.base_ref || (startsWith(github.ref, 'refs/tags/') ? github.ref.replace('refs/tags/', '') : github.ref_name) }}
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        run: ["run1", "run2"]    
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     run: ["run1", "run2"]    
 
     steps:
-    - name: Checkout of tyk
+    - name: Checkout REPO
       uses: actions/checkout@v4
       with:
         ref: ${{ env.BASE_REF }}
+
     - name: Environment Read
       run: |
         echo "GITHUB.REF ${{ github.ref }}"
         echo "GITHUB.WORKFLOW ${{ github.workflow }}"
-        echo "GITHUB.HEAD ${{ github.head }}"
-
-    - name: Sleep 600 - ${{ matrix.run }}
-      run: sleep 600      
+        echo "GITHUB.HEAD ${{ github.head }}"    
 
 
