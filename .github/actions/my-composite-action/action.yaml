@@ -11,4 +11,5 @@ runs:
   steps:
     - name: Print input value
       shell: bash
-      run: echo "Input value: ${{ inputs.some-input }}"
+      run: |
+        echo "Input value: ${{ inputs.some-input }}"
