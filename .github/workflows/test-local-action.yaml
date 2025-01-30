@@ -1,9 +1,13 @@
 name: Test Local Composite Action
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      some-action:
+        type: string
+        description: "An example composite action"
+        required: true
+        default: "my-composite-action"
 
 jobs:
   test-local-action:
@@ -15,4 +19,4 @@ jobs:
       - name: Run composite action
         uses: ./.github/actions/my-composite-action
         with:
-          some-input: "test-value"
+          some-input: "${{ inputs.some-action }}"

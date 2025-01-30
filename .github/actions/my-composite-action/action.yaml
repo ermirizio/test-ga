@@ -10,5 +10,6 @@ runs:
   using: "composite"
   steps:
     - name: Print input value
-      run: echo "Input value: ${{ inputs.some-input }}"
       shell: bash
+      run: |
+        echo "Input value: ${{ inputs.some-input }}"
