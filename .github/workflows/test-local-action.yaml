@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    uses: ./.github/workflows/local-action.yml
+    uses: ./.github/workflows/local-action.yaml
     with:
       some-action: "cereza"
       testmode: true
