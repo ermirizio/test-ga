@@ -1,4 +1,4 @@
-name: Test Terraform PR
+name: Test Terraform PR Extra
 on:
   pull_request:
     branches:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    uses: ./.github/workflows/local-action.yaml
+    uses: ./.github/workflows/local-action-extra.yaml
     with:
       some-action: "cereza"
       testmode: true
